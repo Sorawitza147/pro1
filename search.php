@@ -4,24 +4,31 @@ require_once 'config.php';
 if (isset($_POST['query'])) {
     $inputText = $_POST['query'];
 
-    // Validate and sanitize input (example, you may need more depending on your requirements)
+    // Validate and sanitize input
     $inputText = filter_var($inputText, FILTER_SANITIZE_STRING);
 
-    $sql = "SELECT country_name FROM place_info WHERE country_name LIKE :country";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['country' => '%' . $inputText . '%' ]);
-    $result = $stmt->fetchAll();
-
-    if ($result) {
-        foreach($result as $row) {
-            // Escape output to prevent XSS
-            echo '<a class="list-group-item list-group-item-action border-1">' . htmlspecialchars($row['country_name']) . '</a>';
-        }
+    // Check if the search term is empty or too short
+    if (empty($inputText) || strlen($inputText) < 1) {
+        echo 'Please enter a valid search term.';
     } else {
-        echo '<p class="list-group-item border-1">No record.</p>';
+        // Set the SQL query to select country names starting with the input letter
+        $sql = "SELECT country_name FROM place_info WHERE country_name LIKE :country";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['country' => $inputText . '%']);
+        $result = $stmt->fetchAll();
+
+        if ($result) {
+            foreach ($result as $row) {
+                // Escape output to prevent XSS
+                echo '<a class="list-group-item list-group-item-action border-1">' . htmlspecialchars($row['country_name']) . '</a>';
+            }
+        } else {
+            echo '<p class="list-group-item border-1">No record.</p>';
+        }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,15 +125,23 @@ if (empty($search) || strlen($search) < 3) {
                 // Display results matching the search term
                 foreach ($apiData['data'] as $data) {
                     if (stripos($data['country'], $search) !== false) {
+                        // Display only the country name
                         echo '<div class="result-container">';
-                        echo "<h5>Country ID: {$data['id']}</h5>";
+                        echo "<h5>Country id: {$data['id']}</h5>";
                         echo "<h5>Country Name: {$data['country']}</h5>";
+                        echo "<h5>Country country: {$data['country']}</h5>";
                         echo "<h5>Country description: {$data['description']}</h5>";
                         echo "<h5>Country latitude: {$data['latitude']}</h5>";
                         echo "<h5>Country longitude: {$data['longitude']}</h5>";
                         echo '</div>';
+                        $found = true;
                     }
                 }
+
+                if (!$found) {
+                    echo 'No matching data found.';
+                }
+
                 echo '<div> <a href="index.php" class="btn">Back to Home</a> </div>';
             }
         }
@@ -159,5 +174,6 @@ function callApi($url)
     return $response;
 }
 ?>
+
 </body>
 </html>
