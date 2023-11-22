@@ -139,9 +139,10 @@ if (empty($search) || strlen($search) < 3) {
                 }
 
                 if (!$found) {
-                    echo 'No matching data found.';
+                    // Redirect to another page
+                    header("Location: Error.php");
+                    exit(); // Ensure that the script stops here
                 }
-
                 echo '<div> <a href="index.php" class="btn">Back to Home</a> </div>';
             }
         }
