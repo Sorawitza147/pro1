@@ -129,7 +129,6 @@ if (empty($search) || strlen($search) < 3) {
                         echo '<div class="result-container">';
                         echo "<h5>Country id: {$data['id']}</h5>";
                         echo "<h5>Country Name: {$data['country']}</h5>";
-                        echo "<h5>Country country: {$data['country']}</h5>";
                         echo "<h5>Country description: {$data['description']}</h5>";
                         echo "<h5>Country latitude: {$data['latitude']}</h5>";
                         echo "<h5>Country longitude: {$data['longitude']}</h5>";
