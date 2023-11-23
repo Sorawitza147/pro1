@@ -132,11 +132,19 @@ if (empty($search) || strlen($search) < 3) {
                         echo "<h5>Country description: {$data['description']}</h5>";
                         echo "<h5>Country latitude: {$data['latitude']}</h5>";
                         echo "<h5>Country longitude: {$data['longitude']}</h5>";
+                        if (isset($data['image'])) {
+                            // Get the local path to the image
+                            $localImagePath = $data['image'];
+                        
+                            // Display the flag image using a local path
+                            echo "<img src='{$localImagePath}' alt='Flag of {$data['country']}' style='max-width: 100%;'>";
+                        }
+                        
                         echo '</div>';
                         $found = true;
                     }
                 }
-
+                
                 if (!$found) {
                     // Redirect to another page
                     header("Location: Error.php");
