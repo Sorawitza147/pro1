@@ -1,4 +1,3 @@
-<!-- index.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Country</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #808080; /* เปลี่ยนสีพื้นหลังเป็นเทา */
+            color: #000;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: #fff; /* เปลี่ยนสีพื้นหลังของคอนเทนเนอร์เป็นขาว */
+        }
+    </style>
 </head>
-<body class="bg-success">
+<body>
     
     <div class="container">
         <div class="row mt-4">
-            <div class="col-md-8 mx-auto bg-light rounded p-4">
+            <div class="col-md-12 mx-auto bg-light rounded p-5">
                 <h5 class="text-center font-weight-bold">Country</h5>
                 <hr class="my-1">
                 <h5 class="text-center text-secondary">Country In The Search Box.</h5>
@@ -30,7 +41,6 @@
             </div>
         </div>
     </div>
-
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="main.js"></script>

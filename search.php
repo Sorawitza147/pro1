@@ -1,17 +1,17 @@
-<?php
+<?php   //การตั้งค่าและการตรวจสอบข้อมูลนำเข้า
 require_once 'config.php';
 
 if (isset($_POST['query'])) {
     $inputText = $_POST['query'];
 
-    // Validate and sanitize input
+        // ทำการตรวจสอบและทำความสะอาดข้อมูลที่นำเข้า
     $inputText = filter_var($inputText, FILTER_SANITIZE_STRING);
 
-    // Check if the search term is empty or too short
+   // ตรวจสอบว่าคำค้นหาว่างหรือสั้นเกินไปหรือไม่
     if (empty($inputText) || strlen($inputText) < 1) {
         echo 'Please enter a valid search term.';
     } else {
-        // Set the SQL query to select country names starting with the input letter
+        // กำหนดคำค้น SQL เพื่อเลือกชื่อประเทศที่ขึ้นต้นด้วยตัวอักษรที่ใส่เข้ามา 
         $sql = "SELECT country_name FROM place_info WHERE country_name LIKE :country";
         $stmt = $conn->prepare($sql);
         $stmt->execute(['country' => $inputText . '%']);
@@ -19,7 +19,7 @@ if (isset($_POST['query'])) {
 
         if ($result) {
             foreach ($result as $row) {
-                // Escape output to prevent XSS
+                // หลีกเลี่ยงการแทรกข้อมูลเพื่อป้องกัน XSS
                 echo '<a class="list-group-item list-group-item-action border-1">' . htmlspecialchars($row['country_name']) . '</a>';
             }
         } else {
@@ -93,39 +93,39 @@ if (isset($_POST['query'])) {
 
 <body>
 <?php
-// Set the API endpoint
+// กำหนดที่ API endpoint
 $apiEndpoint = 'http://localhost/pro1/api.php';
 
-// Get the search term
+// รับคำค้นหา
 $search = isset($_POST['search']) ? $_POST['search'] : '';
 
-// Check if the search term is empty or too short
+// ตรวจสอบว่าคำค้นหาว่างหรือสั้นเกินไปหรือไม่
 if (empty($search) || strlen($search) < 3) {
     echo 'Please enter a valid search term (at least 3 characters).';
 } else {
-    // Fetch data from the API
+    // ดึงข้อมูลจาก API
     $apiResponse = callApi($apiEndpoint);
 
-    // Check if there's an error calling the API
+    // ตรวจสอบว่ามีข้อผิดพลาดในการเรียก API 
     if ($apiResponse === false) {
         echo 'Error calling API';
     } else {
-        // Decode the JSON response
+        // ถอดรหัส JSON response จากไฟล์API
         $apiData = json_decode($apiResponse, true);
 
-        // Check if JSON decoding was successful
+        // ตรวจสอบว่าการถอดรหัส JSON ประสบความสำเร็จหรือไม่
         if ($apiData === null && json_last_error() !== JSON_ERROR_NONE) {
             echo 'Error decoding JSON: ' . json_last_error_msg();
         } else {
-            // Check if there is data from the API
+            // ตรวจสอบว่ามีข้อมูลจาก ไฟล์ API 
             if (empty($apiData['data'])) {
                 echo "No data from API";
             } else {
                 $found = false;
-                // Display results matching the search term
+                /// แสดงผลที่ตรงกับคำค้นหา
                 foreach ($apiData['data'] as $data) {
                     if (stripos($data['country'], $search) !== false) {
-                        // Display only the country name
+                        // แสดงผล
                         echo '<div class="result-container">';
                         echo "<h5>Country id: {$data['id']}</h5>";
                         echo "<h5>Country Name: {$data['country']}</h5>";
@@ -133,10 +133,10 @@ if (empty($search) || strlen($search) < 3) {
                         echo "<h5>Country latitude: {$data['latitude']}</h5>";
                         echo "<h5>Country longitude: {$data['longitude']}</h5>";
                         if (isset($data['image'])) {
-                            // Get the local path to the image
+                            // เส้นทางไปรูปภาพ
                             $localImagePath = $data['image'];
                         
-                            // Display the flag image using a local path
+                            // แสดงภาพธงโดยใช้เส้นทางด้านบน
                             echo "<img src='{$localImagePath}' alt='Flag of {$data['country']}' style='max-width: 100%;'>";
                         }
                         
@@ -146,9 +146,9 @@ if (empty($search) || strlen($search) < 3) {
                 }
                 
                 if (!$found) {
-                    // Redirect to another page
+                    // ไปหน้าอื่นถ้า ไม่พบข้อมูล
                     header("Location: Error.php");
-                    exit(); // Ensure that the script stops here
+                    exit();
                 }
                 echo '<div> <a href="index.php" class="btn">Back to Home</a> </div>';
             }
