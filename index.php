@@ -13,12 +13,12 @@
     <div class="container">
         <div class="row mt-4">
             <div class="col-md-8 mx-auto bg-light rounded p-4">
-                <h5 class="text-center font-weight-bold">County</h5>
+                <h5 class="text-center font-weight-bold">Country</h5>
                 <hr class="my-1">
-                <h5 class="text-center text-secondary">Tourist Attraction In The Search Box.</h5>
+                <h5 class="text-center text-secondary">Country In The Search Box.</h5>
                 <form action="search.php" method="POST" class="p-3" style="position: relative;">
                     <div class="input-group">
-                        <input type="text" name="search" id="search" class="form-control form-control-lg border-info rounded-0" placeholder="Search something..." autocomplete="off" required>
+                        <input type="text" name="search" id="search" class="form-control form-control-lg border-info rounded-0" placeholder="Search Country..." autocomplete="off" required>
                         <div class="input-group-append">
                             <input type="submit" name="submit" value="Search" class="btn btn-warning btn-lg rounded-0">
                         </div>
