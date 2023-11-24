@@ -28,7 +28,6 @@ if (isset($_POST['query'])) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,11 +40,13 @@ if (isset($_POST['query'])) {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-
         .result-container {
-            border: 1px solid #ccc;
+            border: 4px solid black; /* เปลี่ยนสีเส้นขอบและปรับขนาดเส้นขอบ */
+            background-color: tan; /* เปลี่ยนสีพื้นหลัง */
             padding: 15px;
             margin-bottom: 20px;
+            color: black; /* เปลี่ยนสีข้อความ */
+            border-radius: 10px; /* เพิ่มขอบมนเข้าไป */
         }
 
         .btn {
@@ -56,41 +57,30 @@ if (isset($_POST['query'])) {
             text-decoration: none;
             border-radius: 5px;
         }
+    @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+    }
+}
+
+.animated-text::after {
+    content: "|";
+    animation: blink-caret 0.75s infinite alternate;
+}
+
+@keyframes blink-caret {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: black;
+    }
+}
     </style>
 </head>
-
-<body>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        .result-container {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-
 <body>
 <?php
 // กำหนดที่ API endpoint
@@ -127,15 +117,16 @@ if (empty($search) || strlen($search) < 3) {
                     if (stripos($data['country'], $search) !== false) {
                         // แสดงผล
                         echo '<div class="result-container">';
-                        echo "<h5>Country id: {$data['id']}</h5>";
-                        echo "<h5>Country Name: {$data['country']}</h5>";
-                        echo "<h5>Country description: {$data['description']}</h5>";
-                        echo "<h5>Country latitude: {$data['latitude']}</h5>";
-                        echo "<h5>Country longitude: {$data['longitude']}</h5>";
+                        echo "<center><h1 class='animated-text'>country</h1></center>";
+                        echo "<h4>Country id: {$data['id']}</h5>";
+                        echo "<h4>Country Name: {$data['country']}</h4>";
+                        echo "<h4>Country description: {$data['description']}</h4>";
+                        echo "<h4>Country latitude: {$data['latitude']}</h4>";
+                        echo "<h4>Country longitude: {$data['longitude']}</h4>";
                         if (isset($data['image'])) {
                             // เส้นทางไปรูปภาพ
                             $localImagePath = $data['image'];
-                        
+                            echo "<h4>Flag country: ↓↓↓↓↓↓↓↓↓↓↓</h4>";
                             // แสดงภาพธงโดยใช้เส้นทางด้านบน
                             echo "<img src='{$localImagePath}' alt='Flag of {$data['country']}' style='max-width: 100%;'>";
                         }
@@ -182,6 +173,6 @@ function callApi($url)
     return $response;
 }
 ?>
-
+            <script src="search.js"></script>     
 </body>
 </html>
