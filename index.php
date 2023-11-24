@@ -8,10 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         body {
-            background-color: #808080; /* เปลี่ยนสีพื้นหลังเป็นเทา */
-            color: #000;
-            margin: 0;
+            background-image: url('img/img.gif');
+            background-size: cover; /* ปรับขนาดภาพให้เต็มหน้าจอ */
+            background-repeat: no-repeat; /* ปิดการทำซ้ำภาพพื้นหลัง */
             font-family: Arial, sans-serif;
+            margin: 20px;
         }
 
         .container {

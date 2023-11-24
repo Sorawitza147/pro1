@@ -37,6 +37,9 @@ if (isset($_POST['query'])) {
     <title>Search Results</title>
     <style>
         body {
+            background-image: url('img/img.gif');
+            background-size: cover; /* ปรับขนาดภาพให้เต็มหน้าจอ */
+            background-repeat: no-repeat; /* ปิดการทำซ้ำภาพพื้นหลัง */
             font-family: Arial, sans-serif;
             margin: 20px;
         }
@@ -57,28 +60,19 @@ if (isset($_POST['query'])) {
             text-decoration: none;
             border-radius: 5px;
         }
-    @keyframes typing {
-            from {
-                width: 0;
+        .animated-text::after {
+            content: "|";
+            animation: blink-caret 0.75s infinite alternate;
+        }
+
+        @keyframes blink-caret {
+            from, to {
+                color: transparent;
             }
-            to {
-                width: 100%;
-    }
-}
-
-.animated-text::after {
-    content: "|";
-    animation: blink-caret 0.75s infinite alternate;
-}
-
-@keyframes blink-caret {
-    from, to {
-        color: transparent;
-    }
-    50% {
-        color: black;
-    }
-}
+            50% {
+                color: black;
+            }
+        }   
     </style>
 </head>
 <body>
