@@ -9,6 +9,8 @@
     <style>
         body {
             background-image: url('img/img.gif');
+            background-position: center;
+            min-height: 100vh;
             background-size: cover; /* ปรับขนาดภาพให้เต็มหน้าจอ */
             background-repeat: no-repeat; /* ปิดการทำซ้ำภาพพื้นหลัง */
             font-family: Arial, sans-serif;
